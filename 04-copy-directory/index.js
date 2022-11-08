@@ -6,7 +6,7 @@ filesPath = path.join(__dirname, 'files'),
 filesCopy = fsPromises.copyFile;
 
 
-(function copyDir() {
+function copyDir() {
     fs.mkdir((filesCopyPath), { 
         recursive: true,
     }, err => {
@@ -19,10 +19,11 @@ filesCopy = fsPromises.copyFile;
     fsPromises
     .readdir(filesPath)
     .then(files => {
-        files.forEach(file => {
+        for (const file of files) {
             const filePath = path.join(filesPath, file);
-            (filePath, path.join(filesCopyPath, file));
+            filesCopy(filePath, path.join(filesCopyPath, file));
             console.log(file)
-        });
-    });
-})();
+        }});
+    };
+
+copyDir()
